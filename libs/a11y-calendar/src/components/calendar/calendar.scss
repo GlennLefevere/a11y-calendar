@@ -1,0 +1,129 @@
+:host {
+
+}
+
+.calendar-wrapper {
+  display: inline-block;
+  border: 1px solid black;
+  padding: 0.375rem;
+}
+
+button {
+  background: none;
+  border: none;
+  padding: 0;
+  color: inherit;
+  cursor: pointer;
+  height: 2.5rem;
+  width: 2.5rem;
+}
+
+.year-grid {
+  display: inline-grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.375rem;
+
+  button {
+    width: 4rem;
+    border-radius: 999px;
+
+    &:hover {
+      background-color: lightgrey;
+    }
+
+    &.selected {
+      border: 1px solid green;
+    }
+  }
+
+}
+
+.day-grid {
+  display: inline-grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+
+  button {
+    position: relative;
+
+    &.selected {
+
+      span:last-of-type {
+        background-color: green;
+        border-radius: 999px;
+      }
+
+      span:first-of-type {
+        border-top-left-radius: 999px;
+        border-bottom-left-radius: 999px;
+        border: 1px dotted;
+      }
+
+    }
+
+    span {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+    }
+  }
+}
+
+.month-grid {
+  display: inline-grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.375rem;
+
+  button {
+    width: 3.625rem;
+    border-radius: 999px;
+
+    &:hover {
+      background-color: lightgrey;
+    }
+
+    &.selected {
+      border: 1px solid green;
+    }
+  }
+}
+
+.calendar-header button {
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+  width: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+
+  span:first-of-type {
+    padding-right: 0.25rem;
+  }
+
+  span:nth-of-type(2) {
+    padding-right: 0.25rem;
+  }
+}
+
+
+.arrow-up {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+
+  border-bottom: 5px solid #000000;
+}
+
+.arrow-down {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+
+  border-top: 5px solid #000000;
+}

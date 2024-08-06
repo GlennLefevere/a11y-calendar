@@ -1,0 +1,22 @@
+{
+  "name": "@infglef/a11y-calendar",
+  "version": "0.0.0",
+  "main": "../../dist/a11y-calendar/dist/index.cjs.js",
+  "module": "../../dist/a11y-calendar/dist/index.mjs",
+  "es2015": "../../dist/a11y-calendar/dist/esm/index.mjs",
+  "es2017": "../../dist/a11y-calendar/dist/esm/index.mjs",
+  "types": "../../dist/a11y-calendar/dist/types/index.d.ts",
+  "collection": "../../dist/a11y-calendar/dist/collection/collection-manifest.json",
+  "collection:main": "../../dist/a11y-calendar/dist/collection/index.js",
+  "unpkg": "../../dist/a11y-calendar/a11y-calendar.js",
+  "files": [
+    "dist/",
+    "loader/"
+  ],
+  "devDependencies": {
+    "@stencil/core": "^4.7.2"
+  },
+  "dependencies": {
+    "@nx/devkit": "17.1.2"
+  }
+}

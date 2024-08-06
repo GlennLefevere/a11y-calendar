@@ -1,0 +1,9 @@
+{
+    "executors": {
+        "webcomponents": {
+            "implementation": "./webcomponents/webcomponents.impl",
+            "schema": "./webcomponents/schema.json",
+            "description": "Adjust package.json to correct paths."
+        }
+    }
+}

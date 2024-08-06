@@ -1,0 +1,12 @@
+{
+    "title": "Typescript Build Target",
+    "description": "Builds using TypeScript",
+    "cli": "nx",
+    "type": "object",
+    "properties": {
+        "outputPath": {
+            "type": "string",
+            "description": "The output path of the generated files."
+        }
+    }
+}

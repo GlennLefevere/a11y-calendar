@@ -1,0 +1,71 @@
+
+{
+  "name": "a11y-calendar",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/a11y-calendar/src",
+  "projectType": "library",
+  "generators": {
+    "@nxext/stencil:component": {
+      "style": "scss"
+    }
+  },
+  "targets": {
+    "test": {
+      "executor": "@nxext/stencil:test",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "displayName": "a11y-calendar",
+        "projectType": "library",
+        "tsConfig": "libs/a11y-calendar/tsconfig.lib.json",
+        "configPath": "libs/a11y-calendar/stencil.config.ts",
+        "outputPath": "dist/a11y-calendar"
+      }
+    },
+    "build": {
+      "executor": "@nxext/stencil:build",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "projectType": "library",
+        "tsConfig": "libs/a11y-calendar/tsconfig.lib.json",
+        "configPath": "libs/a11y-calendar/stencil.config.ts",
+        "outputPath": "dist/a11y-calendar"
+      },
+      "configurations": {
+        "production": {
+          "dev": false,
+          "prod": true
+        }
+      }
+    },
+    "post-build": {
+      "executor": "./tools/executors:webcomponents",
+      "options": {
+        "outputPath": "dist/a11y-calendar"
+      }
+    },
+    "serve": {
+      "executor": "@nxext/stencil:build",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "projectType": "library",
+        "tsConfig": "libs/a11y-calendar/tsconfig.lib.json",
+        "configPath": "libs/a11y-calendar/stencil.config.ts",
+        "outputPath": "dist/libs/a11y-calendar",
+        "serve": true,
+        "watch": true
+      }
+    },
+    "e2e": {
+      "executor": "@nxext/stencil:e2e",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "projectType": "library",
+        "tsConfig": "libs/a11y-calendar/tsconfig.lib.json",
+        "configPath": "libs/a11y-calendar/stencil.config.ts",
+        "outputPath": "dist/libs/a11y-calendar"
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": []
+}

@@ -1,0 +1,17 @@
+{
+  "extends": ["../../.eslintrc.json"],
+  "ignorePatterns": ["!**/*"],
+  "overrides": [
+    {
+      "files": ["*.tsx"],
+      "rules": {
+        "@typescript-eslint/no-inferrable-types": [
+          "error",
+          {
+            "ignoreProperties": true
+          }
+        ]
+      }
+    }
+  ]
+}

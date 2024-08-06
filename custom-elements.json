@@ -1,0 +1,9 @@
+{
+  "version": "experimental",
+  "tags": [
+    {
+      "name": "a11y-calendar",
+      "path": "./libs/a11y-calendar/src/components.d.ts"
+    }
+  ]
+}
