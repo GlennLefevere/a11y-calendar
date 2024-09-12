@@ -42,23 +42,94 @@ button {
   display: inline-grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
 
-  button {
-    position: relative;
 
-    &.selected {
-
+  &.selecting:not(.single, .selected-before-visible, .selected-after-visible) {
+    button:hover {
       span:last-of-type {
-        background-color: green;
+        background-color: lightgrey;
         border-radius: 999px;
       }
 
       span:first-of-type {
-        border-top-left-radius: 999px;
-        border-bottom-left-radius: 999px;
-        border: 1px dotted;
+        border-radius: 999px;
+        background-color: lightgrey;
+      }
+    }
+
+    button:hover:has(~ .selected) {
+      span:first-of-type {
+        border-radius: 999px 0 0 999px;
+        background-color: lightblue;
+      }
+    }
+
+    button:hover ~ .selected {
+      span:first-of-type {
+        border-radius: 0 999px 999px 0;
+        background-color: lightblue;
+      }
+    }
+
+    button:hover ~ button:not(.selected):has(~ .selected) {
+      background-color: lightblue;
+    }
+
+    button.selected ~ button:not(:hover):has(~ :hover) {
+      background-color: lightblue; /* Replace with your desired color */
+    }
+
+    button.selected ~ button:hover {
+      span:first-of-type {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        background-color: lightblue;
+      }
+    }
+
+    button.selected:has(~ button:hover) {
+      span:first-of-type {
+        border-radius: 999px 0 0 999px;
+        background-color: lightblue;
+      }
+    }
+
+    button.selected {
+      span:first-of-type {
+        background-color: lightgrey;
       }
 
     }
+  }
+
+
+  button.selected {
+
+    span:last-of-type {
+      background-color: green;
+      border-radius: 999px;
+    }
+
+  }
+
+  button.selected:has(~ button.selected) {
+    border-radius: 999px 0 0 999px;
+    background-color: lightgreen;
+  }
+
+  button.selected ~ button.selected {
+    span:first-of-type {
+      border-radius: 0 999px 999px 0;
+      background-color: lightgreen;
+    }
+  }
+
+  button.selected ~ button:not(.selected):has(~ .selected) {
+    border-radius: 0;
+    background-color: lightgreen;
+  }
+
+  button {
+    position: relative;
 
     span {
       display: flex;
@@ -71,6 +142,77 @@ button {
       bottom: 0;
     }
   }
+}
+
+
+.end-outside-view {
+  button.selected ~ button {
+    background-color: lightgreen;
+  }
+
+  button.selected {
+    border-radius: 999px 0 0 999px;
+    background-color: lightgreen;
+  }
+}
+
+.start-outside-view {
+  button:first-of-type ~ button:not(.selected, .selected ~ button), button:first-of-type:not(.selected) {
+    background-color: lightgreen;
+  }
+
+  button.selected {
+    span:first-of-type {
+      border-radius: 0 999px 999px 0;
+      background-color: lightgreen;
+    }
+  }
+}
+
+.start-and-end-outside-view {
+  button {
+    background-color: lightgreen;
+  }
+}
+
+.selected-before-visible {
+
+  button:first-of-type ~ button:not(:hover, button:hover ~ button), button:first-of-type:not(:hover) {
+    background-color: lightblue;
+  }
+
+  button:hover {
+    span:first-of-type {
+      border-radius: 0 999px 999px 0;
+      background-color: lightblue;
+    }
+
+    span:last-of-type {
+      background-color: lightgrey;
+      border-radius: 999px;
+    }
+  }
+
+}
+
+.selected-after-visible {
+
+  button:hover ~ button:not(:hover) {
+    background-color: lightblue;
+  }
+
+  button:hover {
+    span:first-of-type {
+      border-radius: 999px 0 0 999px;
+      background-color: lightblue;
+    }
+
+    span:last-of-type {
+      background-color: lightgrey;
+      border-radius: 999px;
+    }
+  }
+
 }
 
 .month-grid {
@@ -92,7 +234,24 @@ button {
   }
 }
 
-.calendar-header button {
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+
+  .previous-next-month {
+    button {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      height: 2.5rem;
+      width: 2.5rem;
+      border-radius: 999px;
+    }
+  }
+}
+
+.calendar-header > button {
   display: inline-flex;
   justify-content: space-between;
   align-items: center;
@@ -100,7 +259,7 @@ button {
   padding-left: 1rem;
   padding-right: 1rem;
 
-  span:first-of-type {
+  span:first-of-type:not(.angle-left, .angle-right) {
     padding-right: 0.25rem;
   }
 
@@ -126,4 +285,46 @@ button {
   border-right: 5px solid transparent;
 
   border-top: 5px solid #000000;
+}
+
+@mixin angle {
+  vertical-align: middle;
+  display: inline-block;
+  position: relative;
+  width: 20px;
+  height: 20px;
+}
+
+.angle-right {
+  @include angle;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: calc(50% - 4px);
+    left: 4px;
+    width: 8px;
+    height: 8px;
+    border: solid black;
+    border-width: 2px 2px 0 0;
+    transform: rotate(45deg);
+    transform-origin: center;
+  }
+}
+
+.angle-left {
+  @include angle;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: calc(50% - 4px);
+    left: 6px;
+    width: 8px;
+    height: 8px;
+    border: solid black;
+    border-width: 2px 2px 0 0;
+    transform: rotate(225deg);
+    transform-origin: center;
+  }
 }

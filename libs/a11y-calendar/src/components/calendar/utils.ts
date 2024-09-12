@@ -1,4 +1,4 @@
-import { getDay, getDaysInMonth, getMonth, getYear, setDate, setMonth } from 'date-fns';
+import { format, getDay, getDaysInMonth, getMonth, getYear, setDate, setMonth } from 'date-fns';
 import { CalendarDay } from './model/calendar-day';
 import { YearsView } from './model/years-view';
 import { MonthView } from './model/month-view';
@@ -47,9 +47,9 @@ export function buildMonthArray(date: Date): CalendarDay[] {
   const endOfMonthWeekDay = getDay(calendarDays[calendarDays.length -1].date);
 
   calendarDays = [
-    ...getDaysOfLastMonthPrefixed(date, startOfMonthWeekDay),
+    ...getDaysOfLastMonthPrefixed(date, startOfMonthWeekDay === 0 ? 7 : startOfMonthWeekDay),
     ...calendarDays,
-    ...getDaysOfNextMonth(date, 6 - endOfMonthWeekDay)
+    ...getDaysOfNextMonth(date, 7 - endOfMonthWeekDay)
   ];
 
   return calendarDays;
@@ -75,10 +75,9 @@ export function buildMonthDays(date: Date): CalendarDay[] {
 
 export function getDaysOfLastMonthPrefixed(date: Date, limit: number): CalendarDay[] {
   let dayDate = cloneDate(date);
-  dayDate = setMonth(dayDate,getMonth(dayDate) - 1);
+  dayDate = setMonth(dayDate, getMonth(dayDate) - 1);
   const days = getDaysInMonth(dayDate);
   let result = [];
-
 
   if(limit !== 0) {
     for(let i = 0; i < limit - 1; i++) {
@@ -101,8 +100,8 @@ export function getDaysOfLastMonthPrefixed(date: Date, limit: number): CalendarD
 export function getDaysOfNextMonth(date: Date, limit: number): CalendarDay[] {
   let result = [];
 
-  if(limit !== 0) {
-    for(let i = 0; i <= limit; i++) {
+  if(limit !== 0 && limit < 7) {
+    for(let i = 0; i < limit; i++) {
       const day = i + 1;
       let dayDate = cloneDate(date);
       dayDate = setMonth(date,getMonth(dayDate) + 1);
@@ -122,24 +121,25 @@ export function getDaysOfNextMonth(date: Date, limit: number): CalendarDay[] {
 }
 
 export function cloneDate(date: Date): Date {
-  return new Date(date.getFullYear(), date.getMonth(), date.getDay(), date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds());
+  return new Date(date.getTime());
 }
 
 
-export function buildMonthView(date: Date, locale: string): MonthView[] {
+export function buildMonthView(date: Date): MonthView[] {
   const result: MonthView[] = [];
   for(let i = 0; i < 12; i++) {
     const month = new Date(date.getFullYear(), i, 1);
+
     result.push({
       month: i,
       selected: date.getMonth() === i,
-      monthName: month.toLocaleString(locale, { month: 'long' }),
-      monthShortName: month.toLocaleString(locale, { month: 'short' }),
+      monthName: getDateMonthName(month, 'long'),
+      monthShortName: getDateMonthName(month, 'short' ),
     })
   }
   return result;
 }
 
-export function getDateMonthName(date: Date, locale: string, length: "numeric" | "2-digit" | "long" | "short" | "narrow" | undefined = 'short'): string {
-  return date.toLocaleString(locale, { month: length });
+export function getDateMonthName(date: Date, length: "long" | "short" = 'short'): string {
+  return format(date, length === 'long' ? 'LLLL' : ' LLL');
 }

@@ -3,7 +3,16 @@
   "tags": [
     {
       "name": "a11y-calendar",
-      "path": "./libs/a11y-calendar/src/components.d.ts"
+      "path": "./libs\\a11y-calendar\\src\\components.d.ts",
+      "properties": [
+        {
+          "name": "locale",
+          "type": "string | undefined"
+        },
+        {
+          "name": "type"
+        }
+      ]
     }
   ]
 }

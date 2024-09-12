@@ -9,6 +9,7 @@ export namespace Components {
     interface A11yCalendar {
         "locale": string;
         "type": CalendarType;
+        "value": CalendarValue;
     }
 }
 declare global {
@@ -26,6 +27,7 @@ declare namespace LocalJSX {
     interface A11yCalendar {
         "locale"?: string;
         "type"?: CalendarType;
+        "value"?: CalendarValue;
     }
     interface IntrinsicElements {
         "a11y-calendar": A11yCalendar;

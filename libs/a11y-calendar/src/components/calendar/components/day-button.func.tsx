@@ -11,7 +11,7 @@ export interface FnDayButtonProps {
 export const FnDayButton: FunctionalComponent<FnDayButtonProps> = ({ calendarDay, onDateClicked }) => {
 
   return (
-    <button aria-label={format(calendarDay.date, 'dd/MM/yyyy')}
+    <button aria-label={format(calendarDay.date, 'PPPP', {})}
             class={{
               'selected': calendarDay.selected
             }}
